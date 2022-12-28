@@ -1,0 +1,95 @@
+#%RAML 1.0
+title: Remote Vending API
+version: v1.0
+baseUri: http://example/api
+mediaType: application/json
+documentation:
+  - title: Example
+    content: |
+      API for the management
+/sales:
+  post:
+    body:
+      example: |
+        {
+          "machineId" : "110",
+          "trayId" : "T1",
+          "dateAndTime" : "2013-12-28 19:31:00",
+          "exchange" : {
+            "value" : 400,
+            "in" : 350,
+            "out" : 50
+          }
+        }
+  get:
+    responses:
+      200:
+        body:
+          example: |
+            {
+                "count" : 2,
+                "sales" : [
+                  {
+                    "dateAndTime" : "2013-12-27 18:18:00",
+                    "value" : 550,
+                    "machineId" : "120",
+                    "productId" : "carry-202"
+                  },
+                  {
+                    "dateAndTime" : "2013-10-22 16:17:00",
+                    "value" : 150,
+                    "machineId" : "ZX5322",
+                    "productId" : "CC-LB1"
+                  }
+                ],
+                "totalValue" : 600
+            }
+/machines:
+  get:
+    responses:
+      200:
+        body:
+          example: |
+            {
+              "count" : 3,
+              "machines" : [
+                {
+                  "id" : "130",
+                  "location" : "MAC'd, local market, NCR, 00001"
+                },
+                {
+                  "id" : "140",
+                  "location" : "Pizza hut, GT Road , NCR , 85346"
+                },
+                {
+                  "id" : "150",
+                  "location" : "More than cafe, CP, NCR, 88909"
+                }
+              ]
+            }
+  /{machine}:
+    get:
+      responses:
+        200:
+          body:
+            example: |
+              {
+                "id" : "320",
+                "location" : "MAC'd, local market, NCR, 00001",
+                "sales" : [
+                  {
+                    "dateAndTime" : "2013-12-28 19:30:00",
+                    "value" : 500,
+                    "machineId" : "ABC111",
+                      "productId" : "140"
+                  },
+                  {
+                    "dateAndTime" : "2013-11-27 17:18:00",
+                    "value" : 450,
+                    "machineId" : "PV90909",
+                    "productId" : "150"
+                    }
+                  ],
+                "floatsToBeReplenished" : [90, 30, 80, 70, 10, 60, 50],
+                "stockToBeReplenished" : 94
+              }
